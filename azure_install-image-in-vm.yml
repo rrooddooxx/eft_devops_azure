@@ -13,7 +13,7 @@ stages:
   - stage: Deploy
     jobs:
       - deployment: DeployToVM
-        displayName: 'Desplegar Postgres a la VM'
+        displayName: 'Desplegar Web APP (ETF Grupo 06) a la VM'
         environment:
           name: 'env_grupo06_eft_devops'
           resourceType: VirtualMachine
@@ -69,9 +69,9 @@ stages:
                     echo $ACR_PASSWORD | sudo docker login ${ACR_NAME}.azurecr.io -u ${ACR_USERNAME} --password-stdin > /dev/null 2>&1
 
                     # Descargar la imagen desde ACR
-                    sudo docker pull ${ACR_NAME}.azurecr.io/${ACR_NAME}.azurecr.io/${IMAGE_NAME}:latest
+                    sudo docker pull acreftgrupo06.azurecr.io/acreftgrupo06.azurecr.io/appweb-eft-grupo06:latest
 
-                    # Verificar si el contenedor PostgreSQL ya está en ejecución
+                    # Verificar si el contenedor web ya está en ejecución
                     if sudo docker ps -a --format '{{.Names}}' | grep -Eq "^nginx_container\$"; then
                       echo "El contenedor 'nginx_container' ya existe. Iniciándolo nuevamente..."
                       sudo docker start nginx_container
@@ -81,10 +81,10 @@ stages:
                     fi
 
                     sudo docker ps
-                  displayName: 'Descargar y ejecutar la imagen PostgreSQL desde ACR'
+                  displayName: 'Descargar y ejecutar la imagen de la web app desde ACR'
                   failOnStderr: true
 
                 - script: |
-                    # Mostrar la URL para conectarse a MySQL
-                    echo "Conectar a MySQL en la máquina virtual con la IP: ${VM_IP_PUBLICA}, puerto: 5432"
-                  displayName: 'Mostrar detalles de conexión a PostgreSQL'
+                    # Mostrar la URL para conectarse a la aplicacion web
+                    echo "Conectar a página web en la máquina virtual con la IP: ${VM_IP_PUBLICA}, puerto: 80"
+                  displayName: 'Mostrar detalles de conexión'
