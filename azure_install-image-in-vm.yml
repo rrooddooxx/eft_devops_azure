@@ -6,7 +6,7 @@ trigger:
 variables:
   VM_IP_PUBLICA: '172.191.107.245' 
   IMAGE_NAME: 'appweb-eft-grupo06'  
-  ACR_NAME: 'AcrEftGrupo06'  
+  ACR_NAME: 'acreftgrupo06'  
   ACR_USERNAME: 'AcrEftGrupo06' 
 
 stages:
